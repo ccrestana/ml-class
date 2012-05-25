@@ -21,12 +21,20 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+% Expand input X: add a 1 to each example (the bias) --> a_1
+a_1 = [ones(m, 1) X];
 
+% Calculate the first layer response: a_2 = sigmoid(theta*a_1); 
+a_2 = sigmoid(Theta1 * a_1')';
 
+% Expand a_2: add a 1...
+a_2 = [ones(m, 1) a_2];
 
+% Calculate the final output layer response
+out = sigmoid(Theta2 * a_2')';
 
-
-
+% Pick the max predicted class, like in the predictOneVsAll...
+[a, p] = max(out, [], 2);
 
 
 % =========================================================================

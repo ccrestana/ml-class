@@ -35,6 +35,18 @@ grad = zeros(size(theta));
 %           temp(1) = 0;   % because we don't add anything for j = 0  
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
+% Cost (vectorized)
+h_theta = sigmoid(X * theta);
+j = -y .* log(h_theta) - (1 - y) .* log(1 - h_theta);
+J = sum(j) / (m);
+% Adding lambda part (regularization)
+J = J + ((lambda/(2*m)) * sum(theta(2:size(theta)).^2));
+
+
+% Now calculating the gradient (vectorized)
+grad = (lambda/m).* theta;
+grad(1) = 0;
+grad = grad + (1/m) * X' * (sigmoid(X * theta) - y);
 
 
 
